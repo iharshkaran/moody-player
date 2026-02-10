@@ -1,9 +1,7 @@
-const express = require("express");
-const app = express();
-const port = 8080;
 const mongoose = require("mongoose");
-const path = require("path");
 const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
+const initData = require("./data");
+const listings = require("../models/listing")
 
 
 main()
@@ -14,8 +12,10 @@ async function main() {
     await mongoose.connect(MONGO_URL);
 };
 
-app.get("/", (req, res) => {
-    res.send("Hey, Welcome to Root");
-});
+const initDB = () => {
+    listings.deleteMany({});
+    listings.insertMany(initData.data);
+    console.log("Data was initialized");
+}
 
-app.listen(port, () => console.log("Server is listening to port 8080.."));
+initDB();
