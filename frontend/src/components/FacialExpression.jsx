@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as faceapi from 'face-api.js';
+import axios from 'axios';
 
-export default function FacialExpression() {
+export default function FacialExpression({ setSongs }) {
     const videoRef = useRef();
 
     const loadModels = async () => {
@@ -29,7 +30,13 @@ export default function FacialExpression() {
 
         const mood = detections[0].expressions.asSortedArray()[0].expression;
 
-        console.log(mood);
+        axios.get(`http://localhost:3000/songs?mood=${mood}`)
+            .then((response) => {
+                setSongs(response.data.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching songs: ", error);
+            });
     };
 
     useEffect(() => {
@@ -39,12 +46,13 @@ export default function FacialExpression() {
     }, []);
 
     return (
-        <div className="h-2/6 w-full flex justify-center gap-8 items-center">
+        <div className="h-[92%] w-xl flex flex-col justify-center gap-8 items-center">
+            <h3 className="text-xl font-bold text-white">Detect Your Mood</h3>
             <video
                 ref={videoRef}
                 autoPlay
                 muted
-                className="w-75 h-55 object-cover rounded-4xl border border-[#2e2e2e] "
+                className="w-55 h-75 object-cover rounded-4xl border border-[#2e2e2e] "
             />
             <button onClick={detectMood} className="px-4 py-2 bg-[#4a4a4a] text-white rounded-lg hover:bg-[#6a6a6a] transition duration-300 cursor-pointer active:scale-95">
                 Detect Mood
