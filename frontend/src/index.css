@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+#song-list::-webkit-scrollbar {
+  width:16px;
+  
+}
+
+#song-list::-webkit-scrollbar-track {
+  background: #3e3e3e;
+  border-radius: 6px;
+  border-left: 6px solid #2e2e2e;
+}
+
+#song-list::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 6px;
+  border-left: 6px solid #2e2e2e;
+}
