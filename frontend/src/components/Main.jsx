@@ -14,7 +14,7 @@ const Main = () => {
 
             <Navbar />
 
-            <div className="h-[90%] w-full flex gap-6 px-12 py-6">
+            <div className="h-[90%]  w-full flex gap-6 px-12 py-6">
               <FacialExpression setSongs={setSongs} />
 
             <SongList
